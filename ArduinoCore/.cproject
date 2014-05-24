@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?>
-
-<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="de.innot.avreclipse.configuration.app.release.1602708466">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="de.innot.avreclipse.configuration.app.release.1602708466" moduleId="org.eclipse.cdt.core.settings" name="Release">
 				<externalSettings/>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -86,20 +84,18 @@
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
 		<project id="FuelCellBikeController.de.innot.avreclipse.project.winavr.elf_2.1.0.1454520998" name="AVR Cross Target Application" projectType="de.innot.avreclipse.project.winavr.elf_2.1.0"/>
 	</storageModule>
-	<storageModule moduleId="scannerConfiguration">
-		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
-		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.release.1602708466;de.innot.avreclipse.configuration.app.release.1602708466.;de.innot.avreclipse.tool.compiler.winavr.app.release.894148084;de.innot.avreclipse.compiler.winavr.input.84295540">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.release.1602708466;de.innot.avreclipse.configuration.app.release.1602708466.">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC"/>
-		</scannerConfigBuildInfo>
-		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.release.1602708466;de.innot.avreclipse.configuration.app.release.1602708466.;de.innot.avreclipse.tool.cppcompiler.app.release.1068200909;de.innot.avreclipse.cppcompiler.input.1469960720">
-			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileCPP"/>
-		</scannerConfigBuildInfo>
-	</storageModule>
 	<storageModule moduleId="refreshScope" versionNumber="1">
 		<resource resourceType="PROJECT" workspacePath="/FuelCellBikeController"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.release.1602708466;de.innot.avreclipse.configuration.app.release.1602708466.;de.innot.avreclipse.tool.cppcompiler.app.release.1068200909;de.innot.avreclipse.cppcompiler.input.1469960720">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileCPP"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="de.innot.avreclipse.configuration.app.release.1602708466;de.innot.avreclipse.configuration.app.release.1602708466.;de.innot.avreclipse.tool.compiler.winavr.app.release.894148084;de.innot.avreclipse.compiler.winavr.input.84295540">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>

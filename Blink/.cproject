@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?fileVersion 4.0.0?>
-
-<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+<?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
 		<cconfiguration id="de.innot.avreclipse.configuration.app.release.1602708466">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="de.innot.avreclipse.configuration.app.release.1602708466" moduleId="org.eclipse.cdt.core.settings" name="Release">
 				<externalSettings/>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -69,7 +67,7 @@
 									<listOptionValue builtIn="false" value="ArduinoCore"/>
 								</option>
 								<option id="de.innot.avreclipse.cpplinker.option.libpath.340954913" name="Libraries Path (-L)" superClass="de.innot.avreclipse.cpplinker.option.libpath" valueType="stringList">
-									<listOptionValue builtIn="false" value="../../ArduinoCore/Release/"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/ArduinoCore/Release}&quot;"/>
 								</option>
 								<inputType id="de.innot.avreclipse.tool.cpplinker.input.1207861046" name="OBJ Files" superClass="de.innot.avreclipse.tool.cpplinker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
@@ -104,8 +102,11 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="de.innot.avreclipse.core.AVRGCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
-	<storageModule moduleId="refreshScope" versionNumber="1">
-		<resource resourceType="PROJECT" workspacePath="/FuelCellBikeController"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/FuelCellBikeController"/>
+		</configuration>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 </cproject>
