@@ -48,6 +48,7 @@ clearOutEvents(handle);
 		handle->ifacePedestrianLight.red = bool_false;
 		handle->ifacePedestrianLight.yellow = bool_false;
 		handle->ifacePedestrianLight.green = bool_false;
+		handle->internal.pedestrianWithoutWaiting = bool_false;
 	}
 
 }
@@ -99,6 +100,10 @@ void trafficlight_exit(Trafficlight* handle)
 						/* Default exit sequence for state StreetGreen */
 						handle->stateConfVector[0] = Trafficlight_last_state;
 						handle->stateConfVectorPosition = 0;
+						{
+							/* Exit action for state 'StreetGreen'. */
+							trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+						}
 					}
 					break;
 				}
@@ -235,6 +240,7 @@ void trafficlight_exit(Trafficlight* handle)
 static void clearInEvents(Trafficlight* handle) {
 	handle->iface.pedestrianRequest_raised = bool_false;
 	handle->iface.onOff_raised = bool_false;
+	handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised = bool_false; 
 	handle->timeEvents.Trafficlight_main_region_on_r1_StreetRedYellow_time_event_0_raised = bool_false; 
 	handle->timeEvents.Trafficlight_main_region_on_r1_StreetRed_time_event_0_raised = bool_false; 
 	handle->timeEvents.Trafficlight_main_region_on_r1_PedestrianGreen_time_event_0_raised = bool_false; 
@@ -440,6 +446,10 @@ static void trafficlight_react_main_region_on_r1_StreetGreen(Trafficlight* handl
 								/* Default exit sequence for state StreetGreen */
 								handle->stateConfVector[0] = Trafficlight_last_state;
 								handle->stateConfVectorPosition = 0;
+								{
+									/* Exit action for state 'StreetGreen'. */
+									trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+								}
 							}
 							break;
 						}
@@ -570,31 +580,56 @@ static void trafficlight_react_main_region_on_r1_StreetGreen(Trafficlight* handl
 					/* Default exit sequence for state StreetGreen */
 					handle->stateConfVector[0] = Trafficlight_last_state;
 					handle->stateConfVectorPosition = 0;
+					{
+						/* Exit action for state 'StreetGreen'. */
+						trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+					}
 				}
 				{
-					/* 'default' enter sequence for state PedestrianRequesting */
-					{
-						/* Entry action for state 'PedestrianRequesting'. */
-						trafficlight_setTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_PedestrianRequesting_time_event_0_raised) , 5 * 1000, bool_false);
-					}
-					{
-						/* 'default' enter sequence for region r2 */
+					/* The reactions of state null. */
+					if (handle->internal.pedestrianWithoutWaiting == bool_false) { 
 						{
-							/* Default react sequence for initial entry  */
+							/* 'default' enter sequence for state PedestrianRequesting */
 							{
-								/* 'default' enter sequence for state waitOn */
-								{
-									/* Entry action for state 'waitOn'. */
-									trafficlight_setTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_PedestrianRequesting_r2_waitOn_time_event_0_raised) , 500, bool_false);
-									handle->ifacePedestrianLight.yellow = bool_true;
-								}
-								handle->stateConfVector[0] = Trafficlight_main_region_on_r1_PedestrianRequesting_r2_waitOn;
-								handle->stateConfVectorPosition = 0;
+								/* Entry action for state 'PedestrianRequesting'. */
+								trafficlight_setTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_PedestrianRequesting_time_event_0_raised) , 5 * 1000, bool_false);
 							}
+							{
+								/* 'default' enter sequence for region r2 */
+								{
+									/* Default react sequence for initial entry  */
+									{
+										/* 'default' enter sequence for state waitOn */
+										{
+											/* Entry action for state 'waitOn'. */
+											trafficlight_setTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_PedestrianRequesting_r2_waitOn_time_event_0_raised) , 500, bool_false);
+											handle->ifacePedestrianLight.yellow = bool_true;
+										}
+										handle->stateConfVector[0] = Trafficlight_main_region_on_r1_PedestrianRequesting_r2_waitOn;
+										handle->stateConfVectorPosition = 0;
+									}
+								}
+							}
+						}
+					}  else {
+						{
+							/* 'default' enter sequence for state StreetAttention */
+							{
+								/* Entry action for state 'StreetAttention'. */
+								trafficlight_setTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetAttention_time_event_0_raised) , 2 * 1000, bool_false);
+								handle->ifaceTrafficLight.yellow = bool_true;
+								handle->ifaceTrafficLight.green = bool_false;
+							}
+							handle->stateConfVector[0] = Trafficlight_main_region_on_r1_StreetAttention;
+							handle->stateConfVectorPosition = 0;
 						}
 					}
 				}
-			} 
+			}  else {
+				if (handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) { 
+					handle->internal.pedestrianWithoutWaiting = bool_true;
+				} 
+			}
 		}
 	}
 }
@@ -615,6 +650,10 @@ static void trafficlight_react_main_region_on_r1_StreetRedYellow(Trafficlight* h
 								/* Default exit sequence for state StreetGreen */
 								handle->stateConfVector[0] = Trafficlight_last_state;
 								handle->stateConfVectorPosition = 0;
+								{
+									/* Exit action for state 'StreetGreen'. */
+									trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+								}
 							}
 							break;
 						}
@@ -756,7 +795,9 @@ static void trafficlight_react_main_region_on_r1_StreetRedYellow(Trafficlight* h
 					/* 'default' enter sequence for state StreetGreen */
 					{
 						/* Entry action for state 'StreetGreen'. */
+						trafficlight_setTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) , 5 * 1000, bool_false);
 						handle->ifaceTrafficLight.green = bool_true;
+						handle->internal.pedestrianWithoutWaiting = bool_false;
 					}
 					handle->stateConfVector[0] = Trafficlight_main_region_on_r1_StreetGreen;
 					handle->stateConfVectorPosition = 0;
@@ -782,6 +823,10 @@ static void trafficlight_react_main_region_on_r1_StreetRed(Trafficlight* handle)
 								/* Default exit sequence for state StreetGreen */
 								handle->stateConfVector[0] = Trafficlight_last_state;
 								handle->stateConfVectorPosition = 0;
+								{
+									/* Exit action for state 'StreetGreen'. */
+									trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+								}
 							}
 							break;
 						}
@@ -949,6 +994,10 @@ static void trafficlight_react_main_region_on_r1_PedestrianGreen(Trafficlight* h
 								/* Default exit sequence for state StreetGreen */
 								handle->stateConfVector[0] = Trafficlight_last_state;
 								handle->stateConfVectorPosition = 0;
+								{
+									/* Exit action for state 'StreetGreen'. */
+									trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+								}
 							}
 							break;
 						}
@@ -1117,6 +1166,10 @@ static void trafficlight_react_main_region_on_r1_AllRed(Trafficlight* handle) {
 								/* Default exit sequence for state StreetGreen */
 								handle->stateConfVector[0] = Trafficlight_last_state;
 								handle->stateConfVectorPosition = 0;
+								{
+									/* Exit action for state 'StreetGreen'. */
+									trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+								}
 							}
 							break;
 						}
@@ -1284,6 +1337,10 @@ static void trafficlight_react_main_region_on_r1_StreetAttention(Trafficlight* h
 								/* Default exit sequence for state StreetGreen */
 								handle->stateConfVector[0] = Trafficlight_last_state;
 								handle->stateConfVectorPosition = 0;
+								{
+									/* Exit action for state 'StreetGreen'. */
+									trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+								}
 							}
 							break;
 						}
@@ -1451,6 +1508,10 @@ static void trafficlight_react_main_region_on_r1_PedestrianRequesting_r2_waitOn(
 								/* Default exit sequence for state StreetGreen */
 								handle->stateConfVector[0] = Trafficlight_last_state;
 								handle->stateConfVectorPosition = 0;
+								{
+									/* Exit action for state 'StreetGreen'. */
+									trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+								}
 							}
 							break;
 						}
@@ -1670,6 +1731,10 @@ static void trafficlight_react_main_region_on_r1_PedestrianRequesting_r2_waitOff
 								/* Default exit sequence for state StreetGreen */
 								handle->stateConfVector[0] = Trafficlight_last_state;
 								handle->stateConfVectorPosition = 0;
+								{
+									/* Exit action for state 'StreetGreen'. */
+									trafficlight_unsetTimer( (sc_eventid) &(handle->timeEvents.Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised) );		
+								}
 							}
 							break;
 						}

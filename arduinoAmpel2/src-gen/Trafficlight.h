@@ -49,8 +49,14 @@ typedef struct {
 	sc_boolean onOff_raised;
 } TrafficlightIface;
 
+//! Type definition of the data structure for the TrafficlightInternal interface scope.
+typedef struct {
+	sc_boolean pedestrianWithoutWaiting;
+} TrafficlightInternal;
+
 //! Type definition of the data structure for the TrafficlightTimeEvents interface scope.
 typedef struct {
+	sc_boolean Trafficlight_main_region_on_r1_StreetGreen_time_event_0_raised;
 	sc_boolean Trafficlight_main_region_on_r1_StreetRedYellow_time_event_0_raised;
 	sc_boolean Trafficlight_main_region_on_r1_StreetRed_time_event_0_raised;
 	sc_boolean Trafficlight_main_region_on_r1_PedestrianGreen_time_event_0_raised;
@@ -76,6 +82,7 @@ typedef struct {
 	TrafficlightIfaceTrafficLight ifaceTrafficLight;
 	TrafficlightIfacePedestrianLight ifacePedestrianLight;
 	TrafficlightIface iface;
+	TrafficlightInternal internal;
 	TrafficlightTimeEvents timeEvents;
 } Trafficlight;
 
