@@ -64,11 +64,6 @@ void trafficlight_unsetTimer(const sc_eventid evid) {
 	unsetTimer(evid);
 }
 
-static void runCycle(void* h, sc_eventid evid) {
-	printf("run cycle\n");
-	trafficlight_runCycle(&handle);
-}
-
 static void setTrafficLights() {
 	/*
 	 * pedestrian waiting light
@@ -136,9 +131,6 @@ void setup() {
 
 	initTimers();
 
-	//init runCylce timer
-	setTimer(&handle, &handle, 1000, 1, runCycle);
-
 	trafficlight_init(&handle);
 	trafficlight_enter(&handle);
 
@@ -169,6 +161,8 @@ void loop() {
 	}
 
 	checkTimersWrapper();
+
+	trafficlight_runCycle(&handle);
 	setTrafficLights();
 }
 
