@@ -1,11 +1,20 @@
 /*
- * Timer API for yakindu sct
+ * Timer API for YAKINDU SCT
  *
  *
- * author:
+ * Usage:
+ * The state machine calls *_setTimer() which must be provided be the main code.
+ * The code calls setTimer() to put the timer into the queue.
+ *
+ * The mainloop calls checkTimers() regularly and provides the time in milliseconds since
+ * the last call. If a timer has a timeout a callback function is raised. This callback can
+ * be a function of the state machine (*_raiseTimeEvent()).
+ *
+ * Author:
  * Axel Utech <axel.utech@gmail.com>
  *
  */
+
 #include "sc_types.h"
 #include "statetimer.h"
 
@@ -101,6 +110,7 @@ static void dispatchTimerEvent(struct timer *tim) {
  *
  * \note May be called as often as possible from the main routine to check for new timeouts
  *
+ * \param deltaT_ms Time in milliseconds since the last call.
  */
 void checkTimers(sc_integer deltaT_ms) {
 	uint8_t i;

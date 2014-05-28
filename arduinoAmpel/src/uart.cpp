@@ -1,7 +1,7 @@
 /*
  * Wrapper to make printf() usable with the Arduino Serial implementation
  *
- * author:
+ * Author:
  * Axel Utech <axel.utech@gmail.com>
  *
  */

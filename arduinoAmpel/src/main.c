@@ -1,18 +1,18 @@
 /*
- * TrafficLight example for yakindu sct
+ * TrafficLight example for YAKINDU SCT
  *
  * based on official example: org.yakindu.sct.examples.c.arduinoTrafficLight
  *
- * changes:
+ * Changes:
  * - use the Arduino core library for pin and time handling
  * - enable debugging with printf() (see uart.c; it uses the Arduino HardwareSerial)
  * - new implementation for timers based on Arduinos millis() function -> no extra timer is used
- * - provide the runCycle event with the new timer api -> handle all timed events in one place
+ * - call runCylce in every iteration of the main loop
  *
- * author:
+ * Author:
  * Axel Utech <axel.utech@gmail.com>
  *
- * notes:
+ * Notes:
  * Arduino Core library is from https://github.com/allgood38/Arduino-Blink-Eclipse-Project
  * notes about the original example:
  * 	http://scholtyssek.blogspot.de/2013/10/yakindu-statechart-tools-arduino.html
@@ -21,10 +21,10 @@
 #include <stdio.h>
 #include <wiring.h>
 
-#include "sc_types.h"
 #include "statetimer.h"
 #include "uart.h"
 
+#include "sc_types.h"
 #include "TrafficlightRequired.h"
 #include "Trafficlight.h"
 
@@ -51,6 +51,7 @@ volatile uint8_t raisePedestrianRequestFlag = 0;
 
 Trafficlight handle;
 
+// helper to call setTimer()
 void trafficlight_setTimer(const sc_eventid evid, int32_t time_ms,
 		const sc_boolean periodic) {
 	printf("set timer id: %p timeout: %i periodic: %i\n", evid, time_ms, periodic);
@@ -145,7 +146,7 @@ static void checkTimersWrapper(void){
 	lastCallTime = now;
 
 	if(deltaT_ms)
-		checkTimers(deltaT_ms); // dispatches all active timers
+		checkTimers(deltaT_ms);
 }
 
 void loop() {
