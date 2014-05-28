@@ -3,7 +3,7 @@
  *
  *
  * Usage:
- * The state machine calls *_setTimer() which must be provided be the main code.
+ * The state machine calls *_setTimer() which must be provided by the main code.
  * The code calls setTimer() to put the timer into the queue.
  *
  * The mainloop calls checkTimers() regularly and provides the time in milliseconds since
@@ -107,8 +107,6 @@ static void dispatchTimerEvent(struct timer *tim) {
 
 /**
  * Checks if a timer has a timeout.
- *
- * \note May be called as often as possible from the main routine to check for new timeouts
  *
  * \param deltaT_ms Time in milliseconds since the last call.
  */
