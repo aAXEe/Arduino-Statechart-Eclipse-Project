@@ -14,6 +14,7 @@
 // internal representation for one timer
 struct timer {
 	// data from statemachines
+	void* statemachineHandle;
 	sc_eventid evid;
 	sc_integer time_ms;
 	sc_boolean periodic;
@@ -47,19 +48,21 @@ static void setTimeout(struct timer *tim) {
 /**
  * Queue a timer event
  *
+ * \param handle	Statemachine handle for the callback
  * \param evid 		Event-ID for the timer
  * \param time_ms 	timout time for the timer
  * \param periodic	true if the timer should be repeated
  * \param callback	Pointer to a callback functions with is called after each timeout
  *
  */
-void setTimer(const sc_eventid evid, const sc_integer time_ms,
+void setTimer(void* handle, const sc_eventid evid, const sc_integer time_ms,
 		const sc_boolean periodic, raiseEventCallback_t callback) {
 	uint8_t i;
 	for (i = 0; i < NUM_MAX_TIMERS; ++i) {
 		if (timers[i].in_use)
 			continue;
 
+		timers[i].statemachineHandle = handle;
 		timers[i].evid = evid;
 		timers[i].time_ms = time_ms;
 		timers[i].periodic = periodic;
@@ -88,7 +91,7 @@ void unsetTimer(const sc_eventid evid) {
 // helper: called if the timer timed out
 static void dispatchTimerEvent(struct timer *tim) {
 	if (tim->callback_fun)
-		tim->callback_fun(tim->evid);
+		tim->callback_fun(tim->statemachineHandle, tim->evid);
 
 	if (tim->periodic)
 		setTimeout(tim);

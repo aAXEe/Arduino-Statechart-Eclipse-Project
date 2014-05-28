@@ -51,16 +51,12 @@ volatile uint8_t raisePedestrianRequestFlag = 0;
 
 Trafficlight handle;
 
-static void raiseEventCallback(sc_eventid evid) {
-	printf("raise timer event id: %p\n", evid);
-	trafficlight_raiseTimeEvent(&handle, evid);
-}
-
 void trafficlight_setTimer(const sc_eventid evid, int32_t time_ms,
 		const sc_boolean periodic) {
 	printf("set timer id: %p timeout: %i periodic: %i\n", evid, time_ms, periodic);
 
-	setTimer(evid, time_ms, periodic, raiseEventCallback);
+	setTimer(&handle, evid, time_ms, periodic,
+			(raiseEventCallback_t)trafficlight_raiseTimeEvent);
 }
 
 void trafficlight_unsetTimer(const sc_eventid evid) {
@@ -68,7 +64,7 @@ void trafficlight_unsetTimer(const sc_eventid evid) {
 	unsetTimer(evid);
 }
 
-static void runCycle(sc_eventid evid) {
+static void runCycle(void* h, sc_eventid evid) {
 	printf("run cycle\n");
 	trafficlight_runCycle(&handle);
 }
@@ -141,7 +137,7 @@ void setup() {
 	initTimers();
 
 	//init runCylce timer
-	setTimer(&handle, 1000, 1, runCycle);
+	setTimer(&handle, &handle, 1000, 1, runCycle);
 
 	trafficlight_init(&handle);
 	trafficlight_enter(&handle);
