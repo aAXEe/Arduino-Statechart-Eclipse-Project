@@ -1,15 +1,13 @@
 /*
- * Time API for yakindu sct
+ * Timer API for yakindu sct
  *
  *
  * author:
  * Axel Utech <axel.utech@gmail.com>
  *
  */
-#include <stdio.h>
 #include "sc_types.h"
 #include "statetimer.h"
-#include "uart.h"
 
 // internal representation for one timer
 struct timer {
@@ -71,7 +69,6 @@ void setTimer(void* handle, const sc_eventid evid, const sc_integer time_ms,
 		return;
 	}
 	//error: no free timer
-	printf("ERROR: No free timer! Increase the number of available timers in statetimer.c.");
 }
 
 /**
