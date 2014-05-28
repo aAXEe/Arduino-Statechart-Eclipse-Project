@@ -149,6 +149,17 @@ void setup() {
 	printf("Setup ready!\n");
 }
 
+static void checkTimersWrapper(void){
+	static unsigned long lastCallTime = 0;
+	unsigned long now = millis();
+
+	int deltaT_ms = now - lastCallTime;
+	lastCallTime = now;
+
+	if(deltaT_ms)
+		checkTimers(deltaT_ms); // dispatches all active timers
+}
+
 void loop() {
 	if(raiseOnOffEventFlag){
 		raiseOnOffEventFlag = 0;
@@ -161,7 +172,7 @@ void loop() {
 		trafficlightIface_raise_pedestrianRequest(&handle);
 	}
 
-	checkTimers(); // dispatches all active timers
+	checkTimersWrapper();
 	setTrafficLights();
 }
 

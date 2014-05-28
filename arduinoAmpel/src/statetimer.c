@@ -1,15 +1,12 @@
 /*
  * Time API for yakindu sct
  *
- * uses Arduinos millis() to check the time
  *
  * author:
  * Axel Utech <axel.utech@gmail.com>
  *
  */
 #include <stdio.h>
-#include "wiring.h"
-
 #include "sc_types.h"
 #include "statetimer.h"
 #include "uart.h"
@@ -25,7 +22,7 @@ struct timer {
 
 	// internal values
 	// current timeout time for the event
-	unsigned long timeout_ms;
+	sc_integer timeout_ms;
 	// 1 if this timer is currently in use
 	uint8_t in_use;
 };
@@ -43,7 +40,7 @@ void initTimers(void) {
 
 // calculate new timeout for a timer
 static void setTimeout(struct timer *tim) {
-	tim->timeout_ms = millis() + tim->time_ms;
+	tim->timeout_ms = tim->time_ms;
 	tim->in_use = 1;
 }
 
@@ -71,8 +68,7 @@ void setTimer(const sc_eventid evid, const sc_integer time_ms,
 		return;
 	}
 	//error: no free timer
-	printf(
-			"ERROR: No free timer! Increase the number of available timers in statetimer.c.");
+	printf("ERROR: No free timer! Increase the number of available timers in statetimer.c.");
 }
 
 /**
@@ -106,15 +102,20 @@ static void dispatchTimerEvent(struct timer *tim) {
  * \note May be called as often as possible from the main routine to check for new timeouts
  *
  */
-void checkTimers(void) {
-	unsigned long now = millis();
+void checkTimers(sc_integer deltaT_ms) {
 	uint8_t i;
+
+	if(deltaT_ms <= 0)
+		return;
 
 	for (i = 0; i < NUM_MAX_TIMERS; ++i) {
 		if (!timers[i].in_use)
 			continue;
-		if (timers[i].timeout_ms > now)
+
+		timers[i].timeout_ms -= deltaT_ms;
+		if (timers[i].timeout_ms > 0)
 			continue;
+
 		dispatchTimerEvent(&timers[i]);
 	}
 }

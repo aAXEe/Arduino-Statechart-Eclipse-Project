@@ -15,7 +15,7 @@ void setTimer(const sc_eventid evid, const sc_integer time_ms,
 
 void unsetTimer(const sc_eventid evid);
 
-void checkTimers(void);
+void checkTimers(sc_integer deltaT_ms);
 void initTimers(void);
 
 
