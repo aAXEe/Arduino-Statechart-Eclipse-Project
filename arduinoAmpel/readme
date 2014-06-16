@@ -1,0 +1,52 @@
+== About ==
+This example is an implementation of the TrafficLight example 
+from the YAKINDU Statechart Tools (SCT). It uses the ArduinoCore library 
+to handle all timing, pin handling and uart communication.
+
+== Setup ==
+This project is intended for use with eclipse as IDE.
+For the basic setup and the necessary AduinoCore library see:
+https://github.com/allgood38/Arduino-Blink-Eclipse-Project
+
+In eclipse this project already has a project reference to the "ArduinoCore"
+project.
+Additionally the linker needs to know about the library. Following settings 
+for this project are necessary: (Already set for this eclipse project)
+Project Settings -> C/C++ Build -> Settings -> Tool Settings -> AVR C++ Linker -> Libraries:
+Libraries (-l): ArduinoCore
+Libraries Path (-L): "${workspace_loc:/ArduinoCore/Release}"
+
+The hardware setup is described here: 
+http://scholtyssek.blogspot.de/2013/10/yakindu-statechart-tools-arduino.html
+Basically there are 6 LEDs and 2 push buttons connected to the Arduino (Uno).
+If you have used different pins change the defines in src/main.c.
+
+== Contents ==
+src/main.c
+	Main file. Contains setup(), loop() and all hardware related stuff.
+	
+src/statetimer.c and src/statetime.h
+	Timer implementation for yakindu state charts. Provides a reusable API
+	for the necessary timer handling. Has no internal time base. All timing must
+	be provided by the caller (see main.c).
+	It has no dependency on the Arduino library.
+	
+src/uart.cpp and sc/uart.h
+	Helper to provide printf() support in the project. Sends all characters 
+	written by the printf() family with Serial.write(c)
+	
+src/arduino.h
+	Include file from the Arduino project. Not currently used.
+	Necessary for some CPP-compilers.
+
+model/
+	The model for the example. The same state chart as in all other TrafficLight examples
+src-gen/
+	generated Code from the model 
+	
+== Author ==
+Axel Utech <axel.utech@gmail.com>
+
+== License ==
+Eclipse Public License v1.0
+see src/license
